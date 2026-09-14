@@ -15,6 +15,8 @@ import os
 import boto3
 import pytest
 
+from e2e import RETRY_CONFIG
+
 
 def pytest_addoption(parser):
     parser.addoption("--runslow", action="store_true", default=False, help="run slow tests")
@@ -43,4 +45,4 @@ def pytest_collection_modifyitems(config, items):
 
 @pytest.fixture(scope="module")
 def os_client():
-    return boto3.client('opensearch')
+    return boto3.client('opensearch', config=RETRY_CONFIG)
